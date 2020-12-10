@@ -1,0 +1,9 @@
+name: ProPractice
+main: dev.tomstar.ProPractice.ProPractice
+version: 1.0.0
+author: tomstar
+
+commands:
+  paste:
+  arena:
+permissions:
