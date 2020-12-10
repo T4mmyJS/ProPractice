@@ -1,4 +1,4 @@
-package dev.tomstar.ProPractice.practice;
+package dev.tomstar.ProPractice.arena;
 
 import org.bukkit.Location;
 

@@ -1,8 +1,8 @@
 package dev.tomstar.ProPractice.listeners;
 
-import dev.tomstar.ProPractice.handlers.PlayerHandler;
+import dev.tomstar.ProPractice.player.PlayerHandler;
 import dev.tomstar.ProPractice.ProPractice;
-import dev.tomstar.ProPractice.states.PlayerState;
+import dev.tomstar.ProPractice.player.PlayerState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -18,12 +18,12 @@ public class PlayerQuitListener implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler
+   /*  @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         PlayerHandler handler = plugin.getPlayerHandler();
         UUID player = event.getPlayer().getUniqueId();
 
         handler.getPlayer(player).setState(PlayerState.OFFLINE);
-    }
+    } */
 
 }

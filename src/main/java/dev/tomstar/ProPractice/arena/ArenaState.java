@@ -1,4 +1,4 @@
-package dev.tomstar.ProPractice.states;
+package dev.tomstar.ProPractice.arena;
 
 public enum ArenaState {
 

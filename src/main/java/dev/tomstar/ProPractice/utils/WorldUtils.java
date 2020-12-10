@@ -1,15 +1,16 @@
 package dev.tomstar.ProPractice.utils;
 
-import dev.tomstar.ProPractice.practice.PracticeArena;
+import dev.tomstar.ProPractice.arena.PracticeArena;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.UUID;
 
 public class WorldUtils {
 
     public static void pasteArea(Location loc1, Location loc2, Location position) {
-        position = getMiddle(loc1, loc2, position);
         for (int x : MathUtils.getValues(loc1.getBlockX(), loc2.getBlockX())) {
             for (int y : MathUtils.getValues(loc1.getBlockY(), loc2.getBlockY())) {
                 for (int z : MathUtils.getValues(loc1.getBlockZ(), loc2.getBlockZ())) {
@@ -24,7 +25,6 @@ public class WorldUtils {
     }
 
     public static void clearArea(Location loc1, Location loc2, Location position) {
-        position = getMiddle(loc1, loc2, position);
         for (int x : MathUtils.getValues(loc1.getBlockX(), loc2.getBlockX())) {
             for (int y : MathUtils.getValues(loc1.getBlockY(), loc2.getBlockY())) {
                 for (int z : MathUtils.getValues(loc1.getBlockZ(), loc2.getBlockZ())) {
@@ -35,25 +35,25 @@ public class WorldUtils {
         }
     }
 
-    public static Location getMiddle(Location loc1, Location loc2, Location position) {
-        int x = position.getBlockX() + loc1.getBlockX() - (loc1.getBlockX() + loc2.getBlockX()) / 2;
-        int y = position.getBlockY() + loc1.getBlockY() - (loc1.getBlockY() + loc2.getBlockY()) / 2;
-        int z = position.getBlockZ() + loc1.getBlockZ() - (loc1.getBlockZ() + loc2.getBlockZ()) / 2;
-
-        return new Location(position.getWorld(), x, y, z);
+    public static int getClosestEmpty(List<PracticeArena> arenas, int distance) {
+        int pos = 0;
+        while (true) {
+            if (emptyArea(arenas, pos)) return pos;
+        }
     }
 
-    public static int getClosestEmpty(List<PracticeArena> arenas, int distance) {
-        int x = 0;
-        while (true) {
-            boolean free = true;
-            for (PracticeArena arena : arenas) {
-                if (arena.getLocation().getBlockX() == x) free = false;
-            }
+    public static boolean emptyArea(List<PracticeArena> arenas, int area) {
+        return (arenas.stream().noneMatch(practiceArena -> practiceArena.getLocation().getBlockX() == area));
+    }
 
-            if (free) return x;
-            x += distance;
-        }
+    public static void teleportPlayer(Location baseLocation, Location baseTeleport, Location arenaLocation, UUID uuid) {
+        Player player = PlayerUtils.getOnline(uuid);
+        int x = arenaLocation.getBlockX() + (baseTeleport.getBlockX() - baseLocation.getBlockX());
+        int y = arenaLocation.getBlockY() + (baseTeleport.getBlockY() - baseLocation.getBlockY());
+        int z = arenaLocation.getBlockZ() + (baseTeleport.getBlockZ() - baseLocation.getBlockZ());
+        Location teleport = new Location(arenaLocation.getWorld(), x, y, z);
+
+        player.teleport(teleport);
     }
 
 }

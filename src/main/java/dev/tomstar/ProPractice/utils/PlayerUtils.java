@@ -1,6 +1,7 @@
 package dev.tomstar.ProPractice.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -8,24 +9,13 @@ import java.util.UUID;
 
 public class PlayerUtils {
 
-    public static String getName(UUID uuid) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getUniqueId().equals(uuid)) return player.getName();
-        }
-
-        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-            if (player.getUniqueId().equals(uuid)) return player.getName();
-        }
-
-        return null;
+    public static Player getOnline(UUID uuid) {
+        return Bukkit.getPlayer(uuid);
     }
 
-    public static Player getOnlinePlayer(UUID uuid) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getUniqueId().equals(uuid)) return player;
-        }
-
-        return null;
+    public static void sendMessage(UUID uuid, String text) {
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null) player.sendMessage(ChatUtils.parse(text));
     }
 
 }

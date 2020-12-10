@@ -1,4 +1,4 @@
-package dev.tomstar.ProPractice.states;
+package dev.tomstar.ProPractice.player;
 
 public enum PlayerState {
 
